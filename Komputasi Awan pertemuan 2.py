@@ -1,10 +1,14 @@
 import streamlit as st
 
+# Input angka dan satuan awal
 x = st.number_input("Masukan Angka")
 sx = st.text_input("Satuan", "C")
-st.write("Anda memasukan", x,'',sx)
+st.write("Anda memasukan", x, sx)
+
+# Input satuan yang dikonversi ke
 sy = st.text_input("Dikonversi ke", "C")
 y = 0
+
 # Logika konversi suhu
 if sx == 'C':
     if sy == 'F':  # Celcius ke Fahrenheit
@@ -27,5 +31,6 @@ elif sx == 'K':
         y = (x - 273.15) * 9/5 + 32
     elif sy == 'K':
         y = x
-st.write (x, ' ',sx, '=', y,sy)
 
+# Output hasil konversi
+st.write(x, sx, "=", y, sy)

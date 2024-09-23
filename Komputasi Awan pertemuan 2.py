@@ -1,36 +1,47 @@
 import streamlit as st
 
-# Input angka dan satuan awal
-x = st.number_input("Masukan Angka")
+# Input number and units
+X = st.number_input("Masukkan angka")
 sx = st.text_input("Satuan", "C")
-st.write("Anda memasukan", x, sx)
-
-# Input satuan yang dikonversi ke
+st.write(f"Anda memasukkan: {X} {sx}")
 sy = st.text_input("Dikonversi ke", "C")
+
+# Initialize variable for conversion result
 y = 0
 
-# Logika konversi suhu
-if sx == 'C':
-    if sy == 'F':  # Celcius ke Fahrenheit
-        y = (x * 9/5) + 32
-    elif sy == 'K':  # Celcius ke Kelvin
-        y = x + 273.15
-    elif sy == 'C':  # Jika tidak ada konversi
-        y = x
-elif sx == 'F':
-    if sy == 'C':  # Fahrenheit ke Celcius
-        y = (x - 32) * 5/9
-    elif sy == 'K':  # Fahrenheit ke Kelvin
-        y = (x - 32) * 5/9 + 273.15
+# Conversion logic
+if sx == 'C':  # Input in Celsius
+    if sy == 'C':
+        y = X  # Celsius to Celsius (no change)
     elif sy == 'F':
-        y = x
-elif sx == 'K':
-    if sy == 'C':  # Kelvin ke Celcius
-        y = x - 273.15
-    elif sy == 'F':  # Kelvin ke Fahrenheit
-        y = (x - 273.15) * 9/5 + 32
+        y = (X * 9/5) + 32  # Celsius to Fahrenheit
     elif sy == 'K':
-        y = x
+        y = X + 273.15  # Celsius to Kelvin
+    else:
+        st.write("Satuan tujuan tidak dikenal")
 
-# Output hasil konversi
-st.write(x, sx, "=", y, sy)
+elif sx == 'F':  # Input in Fahrenheit
+    if sy == 'C':
+        y = (X - 32) * 5/9  # Fahrenheit to Celsius
+    elif sy == 'F':
+        y = X  # Fahrenheit to Fahrenheit (no change)
+    elif sy == 'K':
+        y = (X - 32) * 5/9 + 273.15  # Fahrenheit to Kelvin
+    else:
+        st.write("Satuan tujuan tidak dikenal")
+
+elif sx == 'K':  # Input in Kelvin
+    if sy == 'C':
+        y = X - 273.15  # Kelvin to Celsius
+    elif sy == 'F':
+        y = (X - 273.15) * 9/5 + 32  # Kelvin to Fahrenheit
+    elif sy == 'K':
+        y = X  # Kelvin to Kelvin (no change)
+    else:
+        st.write("Satuan tujuan tidak dikenal")
+
+else:
+    st.write("Satuan input tidak dikenal")
+
+# Output result
+st.write(f"{X} {sx} = {y} {sy}")
